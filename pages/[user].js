@@ -121,13 +121,13 @@ export default function Page() {
         setUser(null);
       }
     });
-  });
+  }, [db]);
 
   //get user data
 
   useEffect(() => {
     setUsername(router.query.user);
-  });
+  }, [router]);
 
   useEffect(() => {
     if (username) {
@@ -143,7 +143,7 @@ export default function Page() {
         }
       );
     }
-  });
+  }, [username]);
 
   useEffect(() => {
     if (pageUserData) {

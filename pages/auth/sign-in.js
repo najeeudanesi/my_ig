@@ -35,7 +35,7 @@ function SignIn() {
         router.push("/");
       }
     });
-  });
+  }, [db]);
 
   return (
     <>
