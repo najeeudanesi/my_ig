@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/navbar";
+import Topbar from "../components/topbar";
 import { useRouter } from "next/router";
 import {
   addDoc,
@@ -158,56 +159,64 @@ export default function Page() {
 
   return (
     <div>
-      {pageUserData ? (
-        <main
-          className={` flex flex-col items-center md:max-w-3xl xl:grid-cols-3 xl:max-w-6xl mx-auto`}
-        >
-          <section className="flex flex-col items-center mt-16">
-            <img
-              src={pageUserData?.profileImg}
-              alt=""
-              className="h-32  w-32 rounded-full object-cover border p-[4px]"
-            />
+      <Topbar />
 
-            {!loading ? (
-              <>
-                {username !== user?.displayName && user ? (
-                  hasFollowed ? (
-                    <button
-                      onClick={followUser}
-                      className="bg-blue-500 text-white rounded-md w-32 px-4 py-2  mt-5"
-                    >
-                      Following
-                    </button>
+      <div className="grid grid-cols-6 min-h-screen">
+        <div className="col-span-2 lg:col-span-1 h-screen">
+          <Navbar />
+        </div>
+        <div className="col-span-4 lg:col-span-5">
+          <div className="grid grid-cols-3 gap-3 md:gap-6">
+            {pageUserData ? (
+              <main
+                className={` flex flex-col items-center md:max-w-3xl xl:grid-cols-3 xl:max-w-6xl mx-auto`}
+              >
+                <section className="flex flex-col items-center mt-16">
+                  <img
+                    src={pageUserData?.profileImg}
+                    alt=""
+                    className="h-32  w-32 rounded-full object-cover border p-[4px]"
+                  />
+
+                  {!loading ? (
+                    <>
+                      {username !== user?.displayName && user ? (
+                        hasFollowed ? (
+                          <button
+                            onClick={followUser}
+                            className="bg-blue-500 text-white rounded-md w-32 px-4 py-2  mt-5"
+                          >
+                            Following
+                          </button>
+                        ) : (
+                          <button
+                            onClick={followUser}
+                            className="bg-blue-500 text-white rounded-md w-32 px-4 py-2  mt-5"
+                          >
+                            Follow
+                          </button>
+                        )
+                      ) : (
+                        <></>
+                      )}
+                    </>
                   ) : (
                     <button
-                      onClick={followUser}
-                      className="bg-blue-500 text-white rounded-md w-32 px-4 py-2  mt-5"
+                      disabled
+                      className="bg-gray-500 text-white rounded-md w-32 px-4 py-2  mt-5"
                     >
                       Follow
                     </button>
-                  )
-                ) : (
-                  <></>
-                )}
-              </>
-            ) : (
-              <button
-                disabled
-                className="bg-gray-500 text-white rounded-md w-32 px-4 py-2  mt-5"
-              >
-                Follow
-              </button>
-            )}
+                  )}
 
-            <div className=" mt-6 font-semibold">{username}</div>
+                  <div className=" mt-6 font-semibold">{username}</div>
 
-            <div className="flex justify-between w-64 mt-5">
-              <p>{followingCount + " Following"} </p>
-              <p>{followersCount + " Followers"} </p>
-            </div>
-            <div>
-              {/* {posts.map((post) => (
+                  <div className="flex justify-between w-64 mt-5">
+                    <p>{followingCount + " Following"} </p>
+                    <p>{followersCount + " Followers"} </p>
+                  </div>
+                  <div>
+                    {/* {posts.map((post) => (
                 <Post
                   key={post.id}
                   id={post.id}
@@ -216,12 +225,15 @@ export default function Page() {
                   caption={post.data().captionRef}
                 />
               ))} */}
-            </div>
-          </section>
-        </main>
-      ) : (
-        <p className="ml-20 text-2xl font-semibold">{pageMessage}</p>
-      )}
+                  </div>
+                </section>
+              </main>
+            ) : (
+              <p className="ml-20 text-2xl font-semibold">{pageMessage}</p>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

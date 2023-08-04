@@ -1,16 +1,35 @@
 import React from "react";
 import Navbar from "../components/navbar";
+import { collection, onSnapshot } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { db } from "../firebase";
+import Topbar from "../components/topbar";
 function explore() {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    onSnapshot(collection(db, "posts"), (snapshot) => {
+      setPosts(snapshot.docs);
+    });
+  }, [db]);
   return (
     <div>
-      {" "}
-      <div className="grid grid-cols-2 min-h-screen">
-        <div className="col-span-2 lg:col-span-1">
+      <Topbar />
+
+      <div className="grid grid-cols-6 min-h-screen">
+        <div className="col-span-2 lg:col-span-1 h-screen">
           <Navbar />
         </div>
-        <div className="col-span-2 lg:col-span-1">
-          {/* Main content */}
-          {/* Add your main content here */}
+        <div className="col-span-4 lg:col-span-5">
+          <div className="grid grid-cols-3 gap-3 md:gap-6">
+            {posts.map((post) => (
+              <img
+                key={post.id}
+                src={post.data().image}
+                className="object-cover w-full md:h-64  lg:h-80 h-32"
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>

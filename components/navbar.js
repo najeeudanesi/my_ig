@@ -8,7 +8,7 @@ import {
 
 export default function Navbar() {
   return (
-    <div className="w-32 bg-white flex-shrink-0">
+    <div className="w-32 bg-white flex-shrink-0 fixed">
       <ul className="flex flex-col items-center py-6 gap-5">
         <li className="mb-6">
           <Link href="/">
