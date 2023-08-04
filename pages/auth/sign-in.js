@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../../firbase";
+import { auth, db } from "../../firebase";
 
 function SignIn() {
   const [email, setEmail] = useState("");
@@ -59,7 +59,7 @@ function SignIn() {
             />
             <div className="mb-3 flex flex-col items-end">
               {" "}
-              <a href="/auth/forgetpassword" className="text-blue-500 text-sm">
+              <a href="/auth/forget-password" className="text-blue-500 text-sm">
                 forgot password?
               </a>{" "}
             </div>

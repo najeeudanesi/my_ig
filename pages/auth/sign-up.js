@@ -7,9 +7,9 @@ import {
   serverTimestamp,
   setDoc,
 } from "firebase/firestore";
-import "../../firbase";
+import "../../firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth, db } from "../../firbase";
+import { auth, db } from "../../firebase";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
