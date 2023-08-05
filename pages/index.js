@@ -22,11 +22,12 @@ const Home = () => {
   return (
     <div>
       <Topbar />
-      <div className="grid grid-cols-2 min-h-screen">
-        <div className="col-span-2 lg:col-span-1">
+
+      <div className="grid grid-cols-6 min-h-screen">
+        <div className="col-span-2 lg:col-span-1 h-screen">
           <Navbar />
         </div>
-        <div className="col-span-2 lg:col-span-1">
+        <div className="col-span-4 lg:col-span-5">
           <div>
             {posts.map((post) => (
               <Post
