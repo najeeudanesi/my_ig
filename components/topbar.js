@@ -52,6 +52,7 @@ function Topbar() {
         setUser(user);
       } else {
         setUser(null);
+        router.push("/auth/sign-in");
       }
     });
     return () => {
@@ -60,25 +61,29 @@ function Topbar() {
   }, [db]);
 
   return (
-    <div className="shadow-sm bg-white border-b z-50 sticky top-0 h-20 flex items-center justify-center">
-      <div className="max-w-xs ">
-        <div className="relative mt-1 p-3 rounded-md">
-          <input
-            className="bg-gray-50 block w-full  pl-7 text-xs h-10
+    <div>
+      {user && (
+        <div className="shadow-sm bg-white border-b z-50 sticky top-0 h-20 flex items-center justify-center">
+          <div className="max-w-xs ">
+            <div className="relative mt-1 p-3 rounded-md">
+              <input
+                className="bg-gray-50 block w-full  pl-7 text-xs h-10
             border-gray-300 focus:ring-black focus:border-black rounded-md"
-            type={"text"}
-            placeholder="Search"
-            value={searchQuery}
-            onChange={handleSearch}
+                type={"text"}
+                placeholder="Search"
+                value={searchQuery}
+                onChange={handleSearch}
+              />
+            </div>
+          </div>
+
+          <SearchPanel
+            isVisible={searchPanelOpen}
+            onClose={() => setSearchPanelOpen(false)}
+            users={filteredUsers}
           />
         </div>
-      </div>
-
-      <SearchPanel
-        isVisible={searchPanelOpen}
-        onClose={() => setSearchPanelOpen(false)}
-        users={filteredUsers}
-      />
+      )}
     </div>
   );
 }

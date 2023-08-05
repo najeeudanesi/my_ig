@@ -146,133 +146,137 @@ function profile() {
 
   return (
     <div>
-      <Topbar />
-      <div className="grid grid-cols-6 min-h-screen">
-        <div className="col-span-2 lg:col-span-1 h-screen">
-          <Navbar />
-        </div>
-        <div className="col-span-4 lg:col-span-5">
-          <>
-            <div className="container mx-auto px-4 mt-10 mb-4">
-              <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-                <div className="flex items-center justify-center space-x-4">
-                  <div>
-                    {selectedFile ? (
-                      <img
-                        src={selectedFile}
-                        alt=""
-                        className="h-32  w-32 rounded-full object-cover border p-[4px]"
-                      />
-                    ) : (
-                      <img
-                        src={user?.photoURL}
-                        className="h-32  w-32 rounded-full object-cover border p-[4px]"
-                        alt=""
-                      />
-                    )}
-
-                    <span
-                      className="text-sm text-blue-700 cursor-pointer"
-                      onClick={() => filePickerRef.current.click()}
-                    >
-                      Edit Profile picture
-                    </span>
-                  </div>
-                </div>
-
-                <div className="mb-4">
-                  <label htmlFor="username" className="block mb-1">
-                    Username
-                  </label>
-                  <input
-                    type="text"
-                    id="username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    className="w-full border border-gray-300 rounded py-2 px-3"
-                  />
-                </div>
-
-                <div className="mb-4">
-                  <label htmlFor="email" className="block mb-1">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full border border-gray-300 rounded py-2 px-3"
-                  />
-                </div>
-
-                <div className="mb-4">
-                  <label htmlFor="password" className="block mb-1">
-                    Old Password
-                  </label>
-                  <input
-                    type="password"
-                    id="password"
-                    value={oldPassword}
-                    onChange={(e) => setOldPassword(e.target.value)}
-                    className="w-full border border-gray-300 rounded py-2 px-3"
-                  />
-                </div>
-
-                <div className="mb-4">
-                  <label htmlFor="password" className="block mb-1">
-                    New Password
-                  </label>
-                  <input
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full border border-gray-300 rounded py-2 px-3"
-                  />
-                </div>
-
-                <div className="mb-4">
-                  <input
-                    ref={filePickerRef}
-                    type="file"
-                    hidden
-                    onChange={addImage}
-                  />
-                </div>
-                <div className="flex justify-end">
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="bg-blue-500 text-white py-2 px-4 rounded   disabled:bg-gray-300 disabled:cursor-not-allowed hover:disabled:bg-gray-300"
-                  >
-                    {loading ? "Saving..." : "Save"}
-                  </button>
-                </div>
-                <div
-                  className="flex justify-center mt-4 font-bold text-red-700 cursor-pointer"
-                  onClick={() => signOut(auth)}
-                >
-                  {" "}
-                  Sign out of your account
-                </div>
-              </form>
+      {user && (
+        <div>
+          <Topbar />
+          <div className="grid grid-cols-6 min-h-screen">
+            <div className="col-span-2 lg:col-span-1 h-screen">
+              <Navbar />
             </div>
+            <div className="col-span-4 lg:col-span-5">
+              <>
+                <div className="container mx-auto px-4 mt-10 mb-4">
+                  <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+                    <div className="flex items-center justify-center space-x-4">
+                      <div>
+                        {selectedFile ? (
+                          <img
+                            src={selectedFile}
+                            alt=""
+                            className="h-32  w-32 rounded-full object-cover border p-[4px]"
+                          />
+                        ) : (
+                          <img
+                            src={user?.photoURL}
+                            className="h-32  w-32 rounded-full object-cover border p-[4px]"
+                            alt=""
+                          />
+                        )}
 
-            {showSnackbar && (
-              <div
-                className={`fixed top-20 right-4 p-4 rounded-lg text-white ${
-                  snackbarColor === "green" ? "bg-green-500" : "bg-red-500"
-                }`}
-              >
-                {snackbarColor === "green"
-                  ? "profile Updated Successfully"
-                  : "Update Failed"}
-              </div>
-            )}
-          </>
+                        <span
+                          className="text-sm text-blue-700 cursor-pointer"
+                          onClick={() => filePickerRef.current.click()}
+                        >
+                          Edit Profile picture
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="mb-4">
+                      <label htmlFor="username" className="block mb-1">
+                        Username
+                      </label>
+                      <input
+                        type="text"
+                        id="username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        className="w-full border border-gray-300 rounded py-2 px-3"
+                      />
+                    </div>
+
+                    <div className="mb-4">
+                      <label htmlFor="email" className="block mb-1">
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="w-full border border-gray-300 rounded py-2 px-3"
+                      />
+                    </div>
+
+                    <div className="mb-4">
+                      <label htmlFor="password" className="block mb-1">
+                        Old Password
+                      </label>
+                      <input
+                        type="password"
+                        id="password"
+                        value={oldPassword}
+                        onChange={(e) => setOldPassword(e.target.value)}
+                        className="w-full border border-gray-300 rounded py-2 px-3"
+                      />
+                    </div>
+
+                    <div className="mb-4">
+                      <label htmlFor="password" className="block mb-1">
+                        New Password
+                      </label>
+                      <input
+                        type="password"
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="w-full border border-gray-300 rounded py-2 px-3"
+                      />
+                    </div>
+
+                    <div className="mb-4">
+                      <input
+                        ref={filePickerRef}
+                        type="file"
+                        hidden
+                        onChange={addImage}
+                      />
+                    </div>
+                    <div className="flex justify-end">
+                      <button
+                        type="submit"
+                        disabled={loading}
+                        className="bg-blue-500 text-white py-2 px-4 rounded   disabled:bg-gray-300 disabled:cursor-not-allowed hover:disabled:bg-gray-300"
+                      >
+                        {loading ? "Saving..." : "Save"}
+                      </button>
+                    </div>
+                    <div
+                      className="flex justify-center mt-4 font-bold text-red-700 cursor-pointer"
+                      onClick={() => signOut(auth)}
+                    >
+                      {" "}
+                      Sign out of your account
+                    </div>
+                  </form>
+                </div>
+
+                {showSnackbar && (
+                  <div
+                    className={`fixed top-20 right-4 p-4 rounded-lg text-white ${
+                      snackbarColor === "green" ? "bg-green-500" : "bg-red-500"
+                    }`}
+                  >
+                    {snackbarColor === "green"
+                      ? "profile Updated Successfully"
+                      : "Update Failed"}
+                  </div>
+                )}
+              </>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
