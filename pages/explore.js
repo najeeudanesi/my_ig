@@ -30,13 +30,12 @@ function explore() {
     <div>
       {user && (
         <div>
-          <Topbar />
-
+          <Navbar />
           <div className="grid grid-cols-6 min-h-screen">
             <div className="col-span-2 lg:col-span-1 h-screen">
-              <Navbar />
+              <Topbar />
             </div>
-            <div className="col-span-4 lg:col-span-5">
+            <div className="col-span-4 lg:col-span-5 mt-16">
               <div className="grid grid-cols-3 gap-3 md:gap-6">
                 {posts.map((post) => (
                   <img

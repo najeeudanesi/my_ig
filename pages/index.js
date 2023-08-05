@@ -21,14 +21,13 @@ const Home = () => {
 
   return (
     <div>
-      <Topbar />
-
+      <Navbar />
       <div className="grid grid-cols-6 min-h-screen">
         <div className="col-span-2 lg:col-span-1 h-screen">
-          <Navbar />
+          <Topbar />
         </div>
-        <div className="col-span-4 lg:col-span-5">
-          <div>
+        <div className="col-span-4 lg:col-span-5 mt-20">
+          <div className="flex flex-col items-center">
             {posts.map((post) => (
               <Post
                 key={post.id}

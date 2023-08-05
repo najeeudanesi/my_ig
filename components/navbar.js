@@ -30,11 +30,11 @@ export default function Navbar() {
   }, [db]);
 
   return (
-    <div>
+    <div className="fixed">
       {user && (
         <div className="w-32 bg-white flex-shrink-0">
           <ul className="flex flex-col items-center py-6 gap-5">
-            <li className="mb-6">
+            <li className="mb-6 mt-20">
               <Link href="/">
                 <div className="flex items-center">
                   <HomeIcon className="w-6 h-6" />

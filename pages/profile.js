@@ -148,14 +148,14 @@ function profile() {
     <div>
       {user && (
         <div>
-          <Topbar />
+          <Navbar />
           <div className="grid grid-cols-6 min-h-screen">
             <div className="col-span-2 lg:col-span-1 h-screen">
-              <Navbar />
+              <Topbar />
             </div>
             <div className="col-span-4 lg:col-span-5">
               <>
-                <div className="container mx-auto px-4 mt-10 mb-4">
+                <div className="container mx-auto px-4 mt-32 mb-4">
                   <form onSubmit={handleSubmit} className="max-w-md mx-auto">
                     <div className="flex items-center justify-center space-x-4">
                       <div>

@@ -61,7 +61,7 @@ function Topbar() {
   }, [db]);
 
   return (
-    <div>
+    <div className="w-full fixed">
       {user && (
         <div className="shadow-sm bg-white border-b z-50 sticky top-0 h-20 flex items-center justify-center">
           <div className="max-w-xs ">
