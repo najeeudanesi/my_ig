@@ -216,15 +216,15 @@ export default function Page() {
                     <p>{followersCount + " Followers"} </p>
                   </div>
                   <div>
-                    {/* {posts.map((post) => (
-                <Post
-                  key={post.id}
-                  id={post.id}
-                  uid={post.data().uid}
-                  img={post.data().image}
-                  caption={post.data().captionRef}
-                />
-              ))} */}
+                    {posts.map((post) => (
+                      <Post
+                        key={post.id}
+                        id={post.id}
+                        uid={post.data().uid}
+                        img={post.data().image}
+                        caption={post.data().captionRef}
+                      />
+                    ))}
                   </div>
                 </section>
               </main>
