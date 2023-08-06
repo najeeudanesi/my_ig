@@ -7,7 +7,10 @@ import {
   ChatBubbleOvalLeftEllipsisIcon,
   HeartIcon,
   PaperAirplaneIcon,
+  DotsCircleHorizontalIcon,
+  TrashIcon,
 } from "@heroicons/react/outline";
+import { HeartIcon as HeartIconFilled } from "@heroicons/react/solid";
 import {
   addDoc,
   collection,
@@ -16,12 +19,14 @@ import {
   onSnapshot,
   orderBy,
   query,
+  serverTimestamp,
+  setDoc,
   where,
 } from "firebase/firestore";
 import Moment from "react-moment";
-import { DotsCircleHorizontalIcon, TrashIcon } from "@heroicons/react/solid";
+import InputEmoji from "react-input-emoji";
 
-function post({ id, uid, img, caption }) {
+function post({ id, uid, img, caption, timestamp }) {
   const [user, setUser] = useState();
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
@@ -72,12 +77,9 @@ function post({ id, uid, img, caption }) {
     await deleteDoc(doc(db, "posts", id));
   };
 
-  const postComment = async (e) => {
-    e.preventDefault();
-
+  const postComment = async () => {
     const commentToPost = comment;
     setComment("");
-
     await addDoc(collection(db, "posts", id, "comments"), {
       comment: commentToPost,
       username: user.displayName,
@@ -98,9 +100,7 @@ function post({ id, uid, img, caption }) {
   return (
     <div>
       {user && (
-        <div className="bg-white my-7 border rounded-sm w-full object-cover  max-w-[800px]">
-          {/* Header */}
-
+        <div className="bg-white rounded-md my-7 border w-full object-cover  max-w-[800px]">
           <div className="flex items-center p-5">
             <img
               src={posterData?.data().profileImg}
@@ -115,16 +115,89 @@ function post({ id, uid, img, caption }) {
             </a>
 
             {user?.uid == uid ? (
-              <TrashIcon className="h-5 cursor-pointer" onClick={deletePost} />
+              <TrashIcon
+                className="h-6 cursor-pointer text-red-500"
+                onClick={deletePost}
+              />
             ) : (
-              <DotsCircleHorizontalIcon className="h-5" />
+              <DotsCircleHorizontalIcon className="h-6 text-gray-500" />
             )}
           </div>
-          <img
-            src={img}
-            className="object-cover w-[800px] max-h-[800px] "
-            alt="not available"
-          />
+          <div>
+            <img
+              src={img}
+              className="object-cover w-[800px] max-h-[800px] "
+              alt="not available"
+            />
+          </div>
+          <div className="flex justify-between items-center px-4 pt-4 my-2">
+            <div className="flex items-center space-x-2">
+              {hasUserLiked ? (
+                <HeartIconFilled
+                  onClick={likethePost}
+                  className=" text-red-700 h-10 w-10 cursor-pointer"
+                />
+              ) : (
+                <HeartIcon
+                  onClick={likethePost}
+                  className=" text-black h-10 w-10 cursor-pointer"
+                />
+              )}
+              <div className="text-black font-semibold text-lg">
+                {" "}
+                {likes.length}
+                {" Likes"}
+              </div>
+            </div>
+          </div>
+          <div className="px-8 pb-4">
+            <div className="flex items-center space-x-1 ">
+              <p className="font-semibold text-lg">
+                {posterData?.data().username}
+              </p>
+              <div className="px-2">
+                {" "}
+                <p className="text-gray-800 text-sm">{caption}</p>
+              </div>
+            </div>
+
+            {comments.length > 0 && (
+              <div className="max-h-24 overflow-y-scroll">
+                {comments.map((comment) => (
+                  <div
+                    key={comment.id}
+                    className="flex items-center space-x-2 mb-3"
+                  >
+                    <img
+                      className="h-6 w-6 rounded-full object-cover"
+                      src={comment.data().userImage}
+                      alt=""
+                    />
+                    <span className="font-semibold text-sm">
+                      {" "}
+                      {comment.data().username}
+                    </span>
+                    <p className="text-sm">{comment.data().comment}</p>
+                    <Moment fromNow className="pr-5 text-xs text-gray-600">
+                      {comment.data().timestamp?.toDate()}
+                    </Moment>
+                  </div>
+                ))}
+              </div>
+            )}
+            <form className="flex items-center p-4">
+              <InputEmoji
+                type="text"
+                value={comment}
+                onChange={setComment}
+                placeholder="Add a comment..."
+                onEnter={postComment}
+              />
+            </form>
+            <Moment className="text-gray-900 my-2" fromNow>
+              {timestamp?.toDate()}
+            </Moment>
+          </div>
         </div>
       )}
     </div>

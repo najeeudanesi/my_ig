@@ -21,8 +21,8 @@ const Home = () => {
 
   return (
     <div>
-      <Navbar />
       <div className="grid grid-cols-6 min-h-screen">
+        <Navbar />
         <div className="col-span-2 lg:col-span-1 h-screen">
           <Topbar />
         </div>
@@ -35,6 +35,7 @@ const Home = () => {
                 uid={post.data().uid}
                 img={post.data().image}
                 caption={post.data().captionRef}
+                timestamp={post.data().timestamp}
               />
             ))}
           </div>

@@ -29,6 +29,10 @@ export default function Navbar() {
     };
   }, [db]);
 
+  const logOut = () => {
+    auth.signOut();
+  };
+
   return (
     <div className="fixed">
       {user && (
@@ -65,6 +69,13 @@ export default function Navbar() {
                   <span className="text-md">Profile</span>
                 </div>
               </Link>
+            </li>
+            <li className="mt-12">
+              <div className="flex items-center">
+                <button className="btn" onClick={logOut}>
+                  Log Out
+                </button>
+              </div>
             </li>
           </ul>
 
